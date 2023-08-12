@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.scss";
+import Navbar from "./components/Navbar/Navbar";
+import { MainRoutes } from "./routs/routs";
+import { AuthContext } from "./AuthContext/AuthContext";
+import { useAuth } from "./hooks/AuthHooks";
 function App() {
+  const { login, logout, token, userId, isReady } = useAuth();
+  const isLogin = !!token;
+  console.log("APP" + isLogin);
+  // const routes = useRoutes(isLogin);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider
+      value={{ isLogin, login, logout, token, userId, isReady }}
+    >
+      <>
+        <Navbar isLogin={isLogin} logout={logout} />
+        <MainRoutes isLogin={isLogin} />
+      </>
+    </AuthContext.Provider>
   );
 }
 

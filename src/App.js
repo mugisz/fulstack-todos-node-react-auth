@@ -6,7 +6,6 @@ import { useAuth } from "./hooks/AuthHooks";
 function App() {
   const { login, logout, token, userId, isReady } = useAuth();
   const isLogin = !!token;
-  console.log("APP" + isLogin);
   // const routes = useRoutes(isLogin);
 
   return (
